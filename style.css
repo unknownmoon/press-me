@@ -1,0 +1,33 @@
+main {
+    display: none;
+    text-align: center;
+}
+
+.no-htmlimports-msg {
+    display: none;
+}
+
+.pace-done .loading {
+    display: none;
+}
+
+.pace-done main {
+    display: block;
+}
+
+.no-htmlimports main {
+    /*display: none;*/
+}
+
+.no-htmlimports .pace-done .no-htmlimports-msg {
+    /*display: block;*/
+}
+
+.um-press-me {
+    margin: 20px;
+}
+
+.um-press-me-btn {
+    width: 100px;
+    height: 100px;
+}

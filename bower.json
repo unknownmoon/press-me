@@ -1,0 +1,29 @@
+{
+  "name": "press-me",
+  "version": "0.0.1",
+  "homepage": "https://github.com/unknownmoon/press-me",
+  "authors": [
+    "Unknown Moon <unknownmoon@163.com>"
+  ],
+  "description": "A button to be pressed. The game that \"How long is your 1 second\".",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "polymer",
+    "web-component"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~1.1.1",
+    "pace": "~1.0.2",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.5"
+  }
+}
