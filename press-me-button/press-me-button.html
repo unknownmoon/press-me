@@ -1,0 +1,119 @@
+<link rel="import" href="../vendor/b/polymer/polymer.html">
+<dom-module id="press-me-button">
+    <template>
+        <!-- scoped CSS for this element -->
+        <style>
+        .um-press-me {
+            margin: 20px;
+        }
+
+        .um-press-me-btn {
+            width: 10rem;
+            height: 10rem;
+            border: none;
+            border-radius: 0% 25% / 50% 25%;
+            background-color: #acd161;
+            color: #2d3b11;
+            -webkit-box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.4);
+            box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.4);
+            font-size: 1.5rem;
+        }
+
+        .um-press-me-btn:active,
+        .um-press-me-btn.active {
+            -webkit-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.5);
+            box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.5);
+        }
+        </style>
+        <section class="um-press-me">
+            <button type="button" class="um-press-me-btn"></button>
+        </section>
+    </template>
+    <script>
+    Polymer({
+        is: "press-me-button",
+        ready: onReady,
+        listeners: {
+            'touchstart': '__onPress',
+            'touchend': '__onRelease',
+            'touchcancel': '__onRelease',
+            'mousedown': '__onPress',
+            'mouseup': '__onRelease'
+        },
+        __onPress: __onPress,
+        __onRelease: __onRelease
+    });
+
+    var pressBtn = null;
+
+    function onReady() {
+        if (!pressBtn) {
+            pressBtn = document.querySelector('.um-press-me-btn');
+        }
+        pressBtn.innerText = "Press me!";
+    }
+
+
+    function PressMeTimer() {
+        this.startTime;
+        this.stopTime;
+    }
+
+    PressMeTimer.prototype.start = function startTimer() {
+        this.startTime = new Date();
+        this.stopTime = null;
+    }
+
+    PressMeTimer.prototype.stop = function stopTimer() {
+        this.stopTime = new Date();
+        return this.formatResult();
+    }
+
+    PressMeTimer.prototype.formatResult = function formatResult(startTime, stopTime) {
+        startTime = startTime || this.startTime;
+        stopTime = stopTime || this.stopTime;
+        var result = null;
+        var formattedRsult = '...';
+
+        if (startTime && stopTime) {
+            result = stopTime - startTime;
+            formattedRsult = (result / 1000).toFixed(3);
+        }
+
+        return formattedRsult;
+    }
+
+    var timer = new PressMeTimer();
+
+    function __onPress(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        if (!pressBtn) {
+            pressBtn = document.querySelector('.um-press-me-btn');
+        }
+
+        pressBtn.classList.add('active');
+
+        if ((TouchEvent && evt instanceof TouchEvent && evt.targetTouches.length) || (MouseEvent && evt instanceof MouseEvent && evt.button === 0)) {
+            // touched by at least 1 finger or
+            // pressed by the Main button
+            timer.start();
+            pressBtn.innerText = 'Timing..';
+        }
+    }
+
+    function __onRelease(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        if (!pressBtn) {
+            pressBtn = document.querySelector('.um-press-me-btn');
+        }
+
+        pressBtn.classList.remove('active');
+        pressBtn.innerText = timer.stop();
+    }
+
+    </script>
+</dom-module>
